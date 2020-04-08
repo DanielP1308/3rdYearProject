@@ -1,0 +1,155 @@
+* {
+	margin: 0px ; 
+	padding: 0px ;
+}
+
+.button1 {
+	margin-top: 70px;
+}
+
+.buttonMain {
+	height: 45px ;
+	width: 300px ;
+	background-color: light-gray ;
+	font-size: 15px ;
+	cursor:pointer ;
+	border-radius: 4px;
+}
+
+.buttonMain:hover {
+	background-color: yellow ;
+}
+
+body {
+	background-color: #898989 ;
+	background-size: cover ;
+	text-align:center;
+}
+
+nav {
+	width: 100% ;
+	height: 85px ;
+	background-color: white ;
+	padding: 0px ;
+}
+
+nav p {
+	font-family: arial ;
+	font-size: 24px ;
+	padding: 30px ;
+	
+}
+.box {
+	position:absolute;
+	border: 2px solid black ;
+	border-radius: 25px;
+	top: 100px;
+    left: 35% ;
+    right: 35% ;
+	padding-bottom: -50x;
+    background-color: #ACACAC   ;
+	background-size: cover ;
+}
+.box1 {
+	position:absolute;
+	border: 2px solid black ;
+	border-radius: 25px;
+	top: 100px;
+    left: 35% ;
+    right: 35% ;
+    background-color: #ACACAC   ;
+	background-size: cover ;
+}
+.box2{
+	display: table;
+	width: 100%;
+	padding-top:50px;
+}
+.left {
+    display: table-cell;
+    text-align: center;
+	padding-left: 10px;
+    float: left;
+    width: auto;
+}
+.#right{
+    display: table-cell;
+    text-align: left;
+    float: right;
+	padding-left:15px;
+    width: auto;
+}
+.inserts{
+	width:70%;
+	border-radius:2px;
+}
+.button1{
+	border-radius:4px;
+	bottom:20px;
+	cursor:pointer;
+	height: 25px ;
+	width: 55px ;
+}
+.button1[type="submit"]{
+	background:#8cf0b1;
+}
+.button1[type="reset"]{
+	background:#f0b18c;
+}
+.input {
+	display: inline-block ;
+	padding: 5px ;
+	width: 200px ;
+}
+.label {
+	display: inline-block ;
+    clear: both;
+	overflow: hidden ;
+    margin-right:15px;
+	vertical-align: middle ;
+	font-size: 20px ;
+	padding-left:100px;
+}
+tbody{
+	text-align:left;
+}
+#Category{
+	width:212px;
+}
+#address{
+	width:200px;
+}
+#amendAddress{
+	width:200px;
+}
+.amendButton1 {
+	border-radius:4px;
+	bottom:20px;
+	cursor:pointer;
+	height: 25px ;
+	width: 100px ;
+	margin-top: 50px ;
+}
+.amendButton1[type="submit"]{
+	background:#8cf0b1;
+}
+.amendButton1[type="reset"]{
+	background:#f0b18c;
+}
+.td1 {
+	text-align: center ;
+}
+.inputCounter {
+	display: inline-block ;
+	padding: 5px ;
+	width: 25px ;
+}
+.labelCounter {
+	display: inline-block ;
+    clear: both;
+	overflow: hidden ;
+    margin-right:15px;
+	vertical-align: middle ;
+	font-size: 20px ;
+	padding-left:20px;
+}
