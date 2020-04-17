@@ -6,14 +6,14 @@
 
     $id = $_SESSION["ID"];
 
-    $nameSQL = "SELECT ImagePath, Post FROM images WHERE MemberID = '$id'";
+    $nameSQL = "SELECT FirstName, LastName FROM members WHERE MembersID = '$id'";
     $result = $conn->query($nameSQL);
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = mysqli_fetch_assoc($result)) {
-            $imagePath = $row["ImagePath"];
-            $post = $row["Post"];
-            $data[] = array($imagePath, $post);
+            $FirstName = $row["FirstName"];
+            $LastName = $row["LastName"];
+            $data[] = array($FirstName, $LastName);
         }
         echo json_encode($data);
     }

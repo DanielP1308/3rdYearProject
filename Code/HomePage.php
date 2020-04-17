@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .column {
   -ms-flex: 50%;
@@ -65,26 +65,21 @@
 </style>
 </head>
 <script>
-$(document).ready(function(){
+$(function(){
     $.ajax({
-        url: 'imageLoad.php', data: "", type: "POST", dataType: 'json',  success: function(rows)        
+        url: 'imageLoad.php', data: "", dataType: 'json',  success: function(rows)        
         {
-             
-            for (var i = 0; i < 10; i++)
+            for (var i in rows)
             {
-                var imagePath = rows[i].path;          
+                var row = rows[i];          
 
                 var id = row[0];
-                $("#main").html('<p>' + imagePath + '</p>');
+                $("#main").html('<img alt="Images" title="Map Image" src="'+ id +'"class="center" />');
             } 
         } 
     });
 });    
-/*$(document).ready(function(){
-    for (var i = 0; i < 10; i++) {
-        $("#main").prepend('<img alt="Images" title="Map Image" src="Photos\/osz___size__.jpg" class="center" />');
-    }
-});*/
+
 </script>
 <body>
 <!-- Photo Grid -->

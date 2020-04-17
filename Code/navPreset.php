@@ -7,20 +7,17 @@ echo '
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Social Media</a>
+      <a class="navbar-brand" href="HomePage.html.php">Social Media</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li class="active"><a href="HomePage.html.php">Home</a></li>
       <li><a href="#">Friends</a></li>
     </ul>';
     if (isset($_SESSION['user'])) {
         echo       
-    '<form class="navbar-form navbar-left" action="search.php" method="POST">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search" id="search" name="search">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    '<ul class="nav navbar-nav">
+      <li><a href="searchResult.html.php">Search</a></li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
         <li><a href="#">'.$_SESSION['user'].'</a></li>
         <li><a href="logout.php">Log Out</a></li>

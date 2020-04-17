@@ -1,6 +1,3 @@
-<!-- DB.INC -->
-<html>
-<body>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -16,5 +13,3 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 ?>
-</body>
-</html>	

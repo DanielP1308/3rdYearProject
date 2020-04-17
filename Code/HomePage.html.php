@@ -2,17 +2,18 @@
     $path = "navPreset.php";
     include($path);
     
-	if(!isset($_SESSION['user'])) {
+	/*if(!isset($_SESSION['user'])) {
 		echo "	<script type='text/javascript'>alert('You are not logged in. Please login!');
 						javascript:window.location.href = 'loginScreen.php' ;
 				</script>";
-	}
+	}*/
 ?>      
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
 .column {
   -ms-flex: 50%;
@@ -34,7 +35,6 @@
     padding-bottom: 5px;
 }
 .button {
-    width: 25%;
     background-color: black;
     color: white;
     padding: 14px 20px;
@@ -42,22 +42,14 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left:50%;
 }
-.buttonUp {
-    width: 25%;
-    background-color: black;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left:25%;
-}
-.container {
-    width: 50%;
+.positionA {
     margin-left: 25%;
+    display: inline-block;
+}
+.positionB {
+    margin-left: 2%;
+    display: inline-block;
 }
 .hide {
     display: block;
@@ -65,34 +57,43 @@
 </style>
 </head>
 <script>
-$(function(){
+$(document).ready(function(){
     $.ajax({
-        url: 'http://localhost/Project/Code/imageLoad.php', data: "", dataType: 'json',  success: function(rows)        
+        url: 'imageLoad.php', data: "", dataType: 'json',  success: function(data)        
         {
-            for (var i in rows)
+            var count = 0;
+            for (var i in data)
             {
-                var row = rows[i];          
+                var row = data[i];          
 
-                var id = row[0];
-                $("#main").html('<img alt="Images" title="Map Image" src='+ id +'class="center" />');
-            } 
+                var imagePath = row[0];
+                var post = row[1];
+                if (imagePath != "" && post != "") {
+                    $("#main").append('<p class="center">'+ post +'</p>');
+                    $("#main").append('<img alt="Images" title="Map Image" src="'+ imagePath +'"class="center" />');    
+                }
+                else if (imagePath != "" && post == "") {
+                    $("#main").append('<img alt="Images" title="Map Image" src="'+ imagePath +'"class="center" />'); 
+                }
+                else if (imagePath == "" && post != "") {
+                    $("#main").append('<p class="center">'+ post +'</p>');
+                }
+            }
         } 
     });
-});    
-/*$(document).ready(function(){
-    for (var i = 0; i < 10; i++) {
-        $("#main").prepend('<img alt="Images" title="Map Image" src="Photos\/osz___size__.jpg" class="center" />');
-    }
-});*/
+});
 </script>
 <body>
-<!-- Photo Grid -->
 <form method="post" action="upload.php" enctype="multipart/form-data">
-    <div >
-        <textarea style="resize: none" class="center" cols="50" rows="8" name="post" id="post"></textarea>
-        <input type="file" name="fileToUpload" id="fileToUpload" class="buttonUp">
-        <input type='submit' value='Submit' class="button" name="submit" /> 
+    <div style="text-align: center">
+        <textarea style="resize: none" class="center" cols="50" rows="4" name="post" id="post"></textarea>
     </div>
+        <div class="positionA">
+            <input type="file" name="fileToUpload" id="fileToUpload" class="button"/>
+        </div>
+        <div class="positionB">
+            <input type='submit' value='Submit' class="button" name="submit" />
+        </div>
 </form>
 <div class="column" id="main"></div>
 </body>

@@ -6,38 +6,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Profile</title>
+<style>
+    .box {
+        margin-top: 2.5%;
+        margin-left: 2%;
+        background-color: lightgray;
+        float: left;
+        display: inline-block;
+    }
+    .box2 {
+        margin-top: 2.5%;
+        margin-left: 2%;
+        height: 250px;
+        width: 70%;
+        background-color: coral;
+        display: inline-block;
+    }
+    .image {
+        height: 250px;
+        width: 250px;
+    }
+</style>
 </head>
+<script>
+$(document).ready(function(){
+    $.ajax({
+        url: 'profileImage.php', data: "", dataType: 'json',  success: function(data)        
+        {
+            for (var i in data)
+            {
+                var row = data[i];          
+
+                var imagePath = row[0];
+                $("#profilePic").html('<img alt="Images" title="Map Image" src="'+ imagePath +'" class="image"/>');
+            }
+        }
+    });
+    $.ajax({
+        url: 'userInfo.php', data: "", dataType: 'json',  success: function(data)        
+        {
+            for (var i in data)
+            {
+                var row = data[i];          
+
+                var firstName = row[0];
+                var lastName = row[1];
+                $("#profilePic").append('<h2>' + firstName + ' ' + lastName + '</h2>');
+                $("#DOB").html('<th>Date of Birth: 13/08/1997</th>');
+                $("#edu").html('<th>Education: IT Carlow</th>');
+                $("#interest").html('<th>Interests: Games</th>');
+            }
+        }
+    });
+});
+</script>
 <body>
+<div class="box" id="profilePic">
 
-
-<div class="row">
-  <div class="side">
-    <h2>About Me</h2>
-    <h5>Photo of me:</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    <h3>More Text</h3>
-    <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div>
-  </div>
-  <div class="main">
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p></p>
-    <br>
-    <h2>TITLE HEADING</h2>
-    <h5></h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>/p>
-  </div>
 </div>
-
-
+<div class="box2" id="name">
+    <table>
+        <tr id="DOB">
+        </tr>
+        <tr id="edu">
+        </tr>
+        <tr id="interest">
+        </tr>
+    </table>
+</div>
+<form method="post" action="profileImageUpload.php" enctype="multipart/form-data">
+        <div class="">
+            <input type="file" name="fileToUpload" id="fileToUpload" class="button"/>
+        </div>
+        <div class="">
+            <input type='submit' value='Submit' class="button" name="submit" />
+        </div>
+</form>
+<div class="column" id="main"></div>
 </body>
 </html>
