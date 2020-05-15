@@ -4,8 +4,8 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-        
-    $passwordSQL = "SELECT password FROM Members WHERE Email = '$_POST[email]'";
+    $success = false;
+    $passwordSQL = "SELECT password FROM Members WHERE Username = '$_POST[username]'";
     $result = $conn->query($passwordSQL);
     if ($result->num_rows > 0) {
     // output data of each row
@@ -14,16 +14,11 @@
         }
     }
     
-if (password_verify($_POST["pwd"], $hash)) {
-    $nameSQL = "SELECT FirstName FROM Members WHERE Email = '$_POST[email]'";
-    $result = $conn->query($nameSQL);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            $_SESSION['user'] = $row["FirstName"];
-        }   
-    }
-    $idSQL = "SELECT MembersID FROM Members WHERE Email = '$_POST[email]'";
+if (password_verify($_POST["password"], $hash)) {
+    $_SESSION['user'] = $_POST['username'];
+    
+    
+    $idSQL = "SELECT MembersID FROM Members WHERE Username = '$_POST[username]'";
     $result = $conn->query($idSQL);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -32,15 +27,12 @@ if (password_verify($_POST["pwd"], $hash)) {
         }   
     }
     //Succesful Login
-    echo "	<script type='text/javascript'>alert('Login Successful.');
-                javascript:window.location.href = 'HomePage.html.php' ;
-            </script>";   
+    $success = true;
 }
 else {
-    echo "	<script type='text/javascript'>alert('Email/Password are incorrect!');
-                javascript:window.location.href = 'loginScreen.html.php' ;
-            </script>"; 
+    $success = false; 
 }
 mysqli_close($conn) ;
+echo json_encode($success);
 ?>
 	

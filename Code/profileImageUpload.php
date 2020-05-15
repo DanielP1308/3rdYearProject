@@ -4,6 +4,8 @@ include($path);
 session_start();
 $target_dir = "Photos/Profile/";
 $target_name = basename($_FILES["fileToUpload"]["name"]);
+$setdate = date("Y-m-d_H_i_s");
+$target_name = $_SESSION['user']."_".$setdate.".jpg";
 $target_file = $target_dir . $target_name;
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -35,10 +37,15 @@ if ($target_name !== "") {
     } 
     else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $newSQL = "UPDATE profileimage SET Selected = '0' WHERE Username = '$_SESSION[user]'";
+            if (!mysqli_query($conn, $newSQL)) {
+                die ("An Error in the SQL Query: ".mysqli_error($conn) ) ;
+            }
             $id = $_SESSION['ID'];
-            $date = date("Y-m-d H:i:s"); 
-            $sql = "Insert into profileimage (MembersID, Path, Date, Selected)
-            VALUES ('$id', '$target_file', '$date', '1')" ;
+            $username = $_SESSION['user'];
+            $date = date("Y-m-d"); 
+            $sql = "Insert into profileimage (MembersID, Username, Path, Date, Selected)
+            VALUES ('$id', '$username', '$target_file', '$date', '1')" ;
 	
 	       if (!mysqli_query($conn,$sql))
 	       {

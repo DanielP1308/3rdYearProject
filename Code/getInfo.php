@@ -6,22 +6,17 @@
         session_start();
     }
 
-    $username = $_POST['username'];
-    $int = "";
-    $school = "";
-    $college = "";
-    $work = "";
-    $phone = "";
-    $country = "";
-    $reletionship = "";
+    $username = $_SESSION['user'];
 
-    $nameSQL = "SELECT FirstName, LastName, DateOfBirth FROM members WHERE Username = '$username'";
+    $nameSQL = "SELECT FirstName, LastName, Email, About, DateOfBirth FROM members WHERE Username = '$username'";
     $result = $conn->query($nameSQL);
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = mysqli_fetch_assoc($result)) {
             $FirstName = $row["FirstName"];
             $LastName = $row["LastName"];
+            $email = $row["Email"];
+            $about = $row["About"];
             $DOB = $row['DateOfBirth'];            
             //$data[] = array($FirstName, $LastName);
         }
@@ -41,6 +36,6 @@
             $reletionship = $row["Reletionship"];
         }
     }
-        $data[] = array($int, $school, $college, $work, $phone, $FirstName, $LastName, $DOB, $country, $reletionship);
+        $data[] = array($FirstName, $LastName, $email, $about, $DOB, $int, $school, $college, $work, $phone, $country, $reletionship);
         echo json_encode($data);
-?>  
+?> 

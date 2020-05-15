@@ -2,11 +2,11 @@
     $path = "navPreset.php";
     include($path);
     
-	/*if(!isset($_SESSION['user'])) {
+	if(!isset($_SESSION['user'])) {
 		echo "	<script type='text/javascript'>alert('You are not logged in. Please login!');
 						javascript:window.location.href = 'loginScreen.php' ;
 				</script>";
-	}*/
+	}
 ?>      
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 25%;
     margin-bottom: 1%;
 }
 .box {
@@ -32,13 +32,14 @@
     left: 25%;
     right: 25%;
     padding-bottom: 5px;
-    border: 2px solid black;
+    background-color: #E98074;
+    border: 0px solid black;
     height: 50px;
 }
 .button {
     width: 10%;
     background-color: black;
-    color: white;
+    color: lavender;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -46,30 +47,61 @@
     cursor: pointer;
     margin-left: 45%;
 }
+.add {
+    float: right;
+    background-color: #8E8D8A;
+    height: 50px;
+}
+    body {
+        background-color: #EAE7DC;
+    }
+    a {
+        color: black;
+        font-size: 16px;
+    }
 </style>
 </head>
 <script>
 $(document).ready(function() {
     $('#button').click(function() {
+        $('#main').html('');
         var search = $('#search').val();
         $.ajax({
             type: 'POST', url: 'search.php', data: {search: search}, dataType: 'json',  success: function(data)        
             {
                 for (var i in data)
                 {
-                    var row = data[i];          
-                    var firstName = row[0];
-                    var lastName = row[1];
+                    var pos = 0;
+                    var row = data[i];
+                    var username = row[0];
+                    var firstName = row[1];
+                    var lastName = row[2];
                     var fullName = firstName + " " + lastName;
+
                     if (data.length > 1) {
-                        $("#main").append('<div class="box"><a>' + fullName + '</a><button id="add">Add Friend</button></div>' );
-                        $("#main").append('<br><br>' );
+                        $("#main").append('<div class="box"><a href="profile.html.php?user=' + username + '">' + fullName + '( ' + username + ' )' + '</a><button id="add" data-data="'+ username +'" class="add">Add Friend</button></div>' );
+                        $("#main").append('<br><br><br>' );
+                        $("#search").val("");
                     }
                     else {
-                        $("#main").html('<div class="box"><a>' + fullName + '</a><button>Add Friend</button></div>' );
+                        $("#main").html('<div class="box"><a style="color: black;" "href="profile.html.php?user=' + username + '">' + fullName + '</a><button id="add" data-data="'+ username +'" class="add">Add Friend</button></div>' );
+                        $("#search").val("");
                     }
-                    
                 }
+                $('body').on('click', '#add', function () {
+                    var username = $(this).data('data');
+                    $.ajax({
+                        type: 'post', url: 'getRequest.php', data: {username: username}, dataType: 'json',  success: function(data)        
+                        {
+                            if (data == false) {
+                                alert("Problem sending request");
+                            }
+                            else {
+                                alert("Request Send");
+                            }
+                        } 
+                    });
+                });
             } 
         });
     });

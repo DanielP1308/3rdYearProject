@@ -43,54 +43,77 @@
           width: 100%;
           margin-bottom: 1%;
       }
+     body {
+        background-color: #EAE7DC;
+    }
   </style>
-</head>
-<body>
 <script>
-
+$(document).ready(function() {
+    $('#button').click(function() {
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var firstName = $('#fname').val();
+        var lastName = $('#lname').val();
+        var dob = $('#dob').val();
+        var password = $('#pwd').val();
+        var passwordCheck = $('#pwd2').val();
+        var about = $('#about').val();
+        if (password != passwordCheck) {
+            alert("Passwords do not match!");
+        }
+        else {
+            $.ajax({
+                type: 'POST', url: 'signup.php', data: {username: username, email: email, firstName: firstName, lastName: lastName, dob: dob, password: password, about: about}, dataType: 'json',  success: function(data)
+                {
+                    if (data == true) {
+                        alert("Username already exists! Please use a different username.");
+                    }
+                    else {
+                        window.location = "loginScreen.html.php";
+                    }
+                } 
+            });   
+        }
+    });
+});
 </script>
+</head>
+<body id="main">
 <div class="box">
   <h2 class="heading">Sign Up</h2>
-  <form action="signup.php" method="post">
+    <div class="form-group">
+      <label for="email">Username:</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username" required>
+    </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
     </div>
     <div class="form-group">
       <label for="pwd">First Name:</label>
-      <input type="text" class="form-control" id="fname" placeholder="Enter name" name="fname">
+      <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
     </div>
     <div class="form-group">
       <label for="pwd">Last Name:</label>
-      <input type="text" class="form-control" id="lname" placeholder="Enter name" name="lname">
+      <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
     </div>
     <div class="form-group">
       <label for="dob">Date of Birth:</label>
-      <input type="date" class="form-control" id="lname" placeholder="Enter name" name="dob">
+      <input type="date" class="form-control" id="dob" name="dob">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
     </div>
     <div class="form-group">
       <label for="pwd">Confirm Password</label>
-      <input type="password" class="form-control" id="pwd2" placeholder="Enter password" name="pwd2">
+      <input type="password" class="form-control" id="pwd2" placeholder="Enter password" name="pwd2" required>
     </div>
     <div class="form-group">
       <label for="about">About:</label>
-        <textarea class="center" cols="50" rows="5"></textarea>
+      <textarea class="center" cols="50" rows="5" id="about"></textarea>
     </div>
-    <div class="form-group">
-      <label for="reletionship">Reletionship</label>
-      <select class="form-control" id="reletionship">
-        <option>Single</option>
-        <option>Married</option>
-        <option>Widowed</option>
-        <option>Prefer not to say</option>
-      </select>
-    </div>
-    <button type="submit" class="button">Submit</button>
-  </form>
+    <button type="submit" class="button" id="button">Submit</button>
 </div>
 
 </body>
